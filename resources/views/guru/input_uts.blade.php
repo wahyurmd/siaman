@@ -67,9 +67,6 @@
         {{$semester_input}}
         <br>
         {{$kelas_input}}
-        <br>
-        {{$mapel_table->mapel}}
-        <input type="text" value="{{$mapel_table->mapel}}">
         <br><br>
         <form action="">
         <table class="table">
