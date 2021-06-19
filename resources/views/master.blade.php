@@ -88,13 +88,6 @@
                         <span>Jadwal Pelajaran</span>
                     </a>
                 </li>
-                <li class="nav-item {{ Request::is('admin/riwayat_ujian') ? 'active' : '' }}">
-                    <a class="nav-link collapsed" href="{{ url('admin/riwayat_ujian') }}" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-history"></i>
-                        <span>Riwayat Ujian</span>
-                    </a>
-                </li>
                 <li class="nav-item {{ Request::is('admin/daftar_laporan') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('admin/daftar_laporan') }}" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
@@ -224,14 +217,8 @@
                         <span>Jadwal Pelajaran</span>
                     </a>
                 </li>
-                <li class="nav-item {{ Request::is('siswa/riwayat_ujian') ? 'active' : '' }}">
-                    <a class="nav-link collapsed" href="{{ url('siswa/riwayat_ujian') }}" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-history"></i>
-                        <span>Riwayat Ujian</span>
-                    </a>
-                </li>
             @endif
+
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->

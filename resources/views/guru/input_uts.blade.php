@@ -16,15 +16,15 @@
     <br>
 
     <div class="row">
-        <form action="input_uts" method="">
-            <div class="col">
+        <div class="col">
+            <form action="input_uts" method="">
                 <div class="form-group">
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="exampleInputEmail1">Mata Pelajaran</label>
+                            <label for="exampleInputEmail1">Pilih Mata Pelajaran</label>
                         </div>
                         <div class="col-md-10">
-                            <select class="form-control" name="mapel" id="mapel">
+                            <select class="form-control" name="pilih_mapel" id="mapel" required>
                                 <option disabled selected>Mata Pelajaran</option>
                                 @foreach ($pelajaran as $mapel)
                                     <option value="{{ $mapel->id_mapel }}">{{ $mapel->mapel }} - {{ $mapel->nama }}</option>
@@ -34,76 +34,100 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="exampleInputEmail1">Semester</label>
+                            <label for="exampleInputEmail1">Pilih Semester</label>
                         </div>
                         <div class="col-md-10">
-                            <select class="form-control" name="semester" id="semester">
+                            <select class="form-control" name="pilih_semester" id="semester" required>
                                 <option disabled selected>Pilih</option>
-                                <option value="Ganjil">Ganjil</option>
-                                <option value="Genap">Genap</option>
+                                @foreach ($smt as $row)
+                                    <option value="{{ $row->id }}">{{ $row->semester }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="exampleInputEmail1">Kelas</label>
+                            <label for="exampleInputEmail1">Pilih Kelas</label>
                         </div>
                         <div class="col-md-10">
-                            <select class="form-control" name="kelas" id="dropselect">
+                            <select class="form-control" name="pilih_kelas" id="dropselect" required>
                                 <option disabled selected>Kelas</option>
                                 @foreach ($tampil_kelas as $row)
                                     <option value="{{ $row->id_kelas }}">{{ $row->kelas }} {{ $row->jurusan }}</option>
                                 @endforeach
                             </select>
-                            <input type="hidden" class="form-control" name="keterangan" value="uts">
                         </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Cari</button>
+            </form>
+            <hr>
+            <div>
+                <div class="row mb-3">
+                    @foreach ($mapel_table as $mapel_table)
+                    <div class="col-md-2">
+                        <label for="exampleInputEmail1">Mata Pelajaran</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" value="{{ $mapel_table->mapel }}" readonly>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="row mb-3">
+                    @foreach ($semester_table as $semester_table)
+                    <div class="col-md-2">
+                        <label for="exampleInputEmail1">Semester</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" value="{{ $semester_table->semester }}" readonly>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="row mb-3">
+                    @foreach ($kelas_table as $kelas_table)
+                    <div class="col-md-2">
+                        <label for="exampleInputEmail1">Kelas</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" value="{{ $kelas_table->kelas }} {{ $kelas_table->jurusan }}" readonly>
+                    </div>
+                    @endforeach
+                </div>
+                <form action="{{ url('guru/input_uts/proses') }}" method="POST">
+                    {{ csrf_field() }}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <th>No</th>
+                                <th style="min-width: 190px">Nama</th>
+                                <th>Kompentensi Dasar</th>
+                            </thead>
+                            @php
+                                $no=1;
+                            @endphp
+                            @foreach ($output as $item)
+                                <tbody>
+                                    <tr>
+                                        <th>{{ $no++ }}</th>
+                                        <td style="min-width: 190px">
+                                            {{ $item->nama }}
+                                            <input type="text" name="nisn[]" class="form-control" value="{{ $item->nisn }}" readonly></td>
+                                        <td>
+                                            <input type="number" name="uts[]" step="any" class="form-control" value="0">
+                                            <input type="hidden" name="id_mapel[]" class="form-control" value="{{ $mapel_table1->id_mapel }}" readonly>
+                                            <input type="hidden" name="id_semester[]" class="form-control" value="{{ $semester_table1->id }}" readonly>
+                                            <input type="hidden" name="id_kelas[]" class="form-control" value="{{ $kelas_table1->id_kelas }}" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-success">Input</button>
+                </form>
             </div>
-        </form>
-        {{$mapel_input}}
-        <br>
-        {{$semester_input}}
-        <br>
-        {{$kelas_input}}
-        <br><br>
-        <form action="">
-        <table class="table">
-            <thead>
-                <th>No</th>
-                <th>Nama</th>
-                <th>Kompentensi Dasar</th>
-            </thead>
-            @php
-                $no=1;
-            @endphp
-            @foreach ($output as $item)
-            <tbody>
-                <tr>
-                    <th>{{ $no++ }}</th>
-                    <td>{{ $item->nama }}</td>
-                    <td><input type="number" name="nilai" class="form-control" value=""></td>
-                </tr>
-            </tbody>
-            @endforeach
-        </table>
-        <button type="submit" class="btn btn-primary">Input</button>
-        </form>
+        </div>
     </div>
 </div>
 
 @endsection
-
-{{-- @section('js_tambahan')
-    <script>
-        $(document).ready(function() {
-            console.log("haii");
-            $("#dropselect").on('change', function() {
-                console.log($(this).val());
-                $(".data").hide();
-                $("#" + $(this).val()).fadeIn(700);
-            }).change();
-        });
-    </script>
-@endsection --}}

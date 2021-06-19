@@ -158,77 +158,52 @@ class DashboardController extends Controller
         return view('guru/input_uh', ['user' => $user, 'data' => $data, 'data2' => $data2]);
     }
 
-    // public function input_uts()
-    // {
-    //     $user = Auth::user();
-    //     $data = DB::table('users')
-    //     ->join('siswa', 'users.username', '=', 'siswa.nisn')
-    //     ->select('users.*', 'siswa.nisn', 'siswa.nama', 'siswa.tgl_lahir as tgllahir', 'siswa.jenis_kelamin as jk', 'siswa.no_telp as no_hp', 'siswa.alamat as address', 'siswa.id_kelas')->get();
-    //     $data2 = DB::table('users')
-    //     ->join('guru', 'users.username', '=', 'guru.nip')
-    //     ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
-    //     $pelajaran = DB::table('mapel')
-    //     ->join('guru', 'mapel.nip', '=', 'guru.nip')
-    //     ->get();
-    //     $tampil_kelas = Kelas::all();
-
-    //     return view('guru/input_uts', [
-    //         'user' => $user,
-    //         'data' => $data,
-    //         'data2' => $data2,
-    //         'pelajaran' => $pelajaran,
-    //         'tampil_kelas' => $tampil_kelas
-    //     ]);
-    // }
-
-    public function input_uts()
+    public function input_uts(Request $request)
     {
-        // get value from the form
-        $mapel_input = Request()->mapel;
-        $semester_input = Request()->semester;
-        $kelas_input = Request()->kelas;
-        $mapel_table = DB::table('mapel')->where('id_mapel', $mapel_input)->first();
-        $kelas_table = DB::table('kelas')->where('id_kelas', $kelas_input)->first();
-        // return $mapel_table->mapel;
+        $mapel_input = $request->pilih_mapel;
+        $semester = $request->pilih_semester;
+        $kelas_input = $request->pilih_kelas;
 
-        // data user yang sedang login
         $user = Auth::user();
-
-        // data mapel
-        $pelajaran = DB::table('mapel')
-        ->join('guru', 'mapel.nip', '=', 'guru.nip')
-        ->get();
-
-        // data kelas
-        $tampil_kelas = DB::table('kelas')->get();
-
-        // data guru untuk validasi session guru
-        $data2 = DB::table('users')
-        ->join('guru', 'users.username', '=', 'guru.nip')
-        ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
-
-        // data siswa untuk validasi session siswa
+        $tampil_kelas = Kelas::all();
         $data = DB::table('users')
         ->join('siswa', 'users.username', '=', 'siswa.nisn')
         ->select('users.*', 'siswa.nisn', 'siswa.nama', 'siswa.tgl_lahir as tgllahir', 'siswa.jenis_kelamin as jk', 'siswa.no_telp as no_hp', 'siswa.alamat as address', 'siswa.id_kelas')->get();
-
+        $data2 = DB::table('users')
+        ->join('guru', 'users.username', '=', 'guru.nip')
+        ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
+        $pelajaran = DB::table('mapel')
+        ->join('guru', 'mapel.nip', '=', 'guru.nip')
+        ->get();
+        $smt = DB::table('semester')->get();
         $output = DB::table('siswa')
         ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id_kelas')
+        ->orderBy('siswa.nama','asc')
         ->where('kelas.id_kelas', $kelas_input)
         ->get();
+        $mapel_table = DB::table('mapel')->where('id_mapel', $mapel_input)->get();
+        $kelas_table = DB::table('kelas')->where('id_kelas', $kelas_input)->get();
+        $semester_table = DB::table('semester')->where('id', $semester)->get();
+        $mapel_table1 = DB::table('mapel')->where('id_mapel', $mapel_input)->first();
+        $kelas_table1 = DB::table('kelas')->where('id_kelas', $kelas_input)->first();
+        $semester_table1 = DB::table('semester')->where('id', $semester)->first();
 
-        return view('guru.input_uts')->with(compact(
-            'pelajaran',
-            'tampil_kelas',
-            'data2',
-            'data',
-            'user',
-            'mapel_input',
-            'semester_input',
-            'kelas_input',
-            'output',
-            'mapel_table'
-        ));
+        return view('guru/input_uts', [
+            'user' => $user,
+            'data' => $data,
+            'data2' => $data2,
+            'pelajaran' => $pelajaran,
+            'tampil_kelas' => $tampil_kelas,
+            'smt' => $smt,
+            'output' => $output,
+            'semester' => $semester,
+            'mapel_table' => $mapel_table,
+            'kelas_table' => $kelas_table,
+            'semester_table' => $semester_table,
+            'mapel_table1' => $mapel_table1,
+            'kelas_table1' => $kelas_table1,
+            'semester_table1' => $semester_table1
+        ]);
     }
 
     public function input_uas()

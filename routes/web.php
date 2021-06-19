@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Kernel;
 
 /*
@@ -28,9 +29,9 @@ Route::prefix('/')->group(function () {
 
 Route::post('auth/proses-edit', [AuthController::class, 'proses_update']);
 
-Route::get('autocomplete', [LaporanController::class, 'autocomplete_search'])->name('autocomplete');
-Route::get('auto', [LaporanController::class, 'autocomplete'])->name('auto');
-Route::post('getautocomplete', [LaporanController::class, 'getautocomplete'])->name('getautocomplete');
+// Route::get('autocomplete', [LaporanController::class, 'autocomplete_search'])->name('autocomplete');
+// Route::get('auto', [LaporanController::class, 'autocomplete'])->name('auto');
+// Route::post('getautocomplete', [LaporanController::class, 'getautocomplete'])->name('getautocomplete');
 Route::get('searchautocomplete', [LaporanController::class, 'searchautocomplete'])->name('searchautocomplete');
 
 Route::middleware(['auth'])->group(function () {
@@ -60,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('guru/input_uh', [DashboardController::class, 'input_uh']);
         Route::get('guru/input_uts', [DashboardController::class, 'input_uts']);
         Route::get('guru/input_uas', [DashboardController::class, 'input_uas']);
+        Route::post('guru/input_uts/proses', [NilaiController::class, 'proses_input_uts']);
         Route::get('guru/auth/edit/{username}', [AuthController::class, 'edit_akun']);
     });
     Route::middleware(['cek_login:siswa'])->group(function () {

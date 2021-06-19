@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2021 at 10:56 AM
+-- Generation Time: Jun 18, 2021 at 01:43 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -161,7 +161,27 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2019_08_19_000000_create_failed_jobs_table', 1),
 (7, '2021_06_09_075920_kelas', 1),
 (8, '2021_06_09_083052_create_wali_kelas_table', 2),
-(10, '2021_06_09_085239_create_mapel_table', 3);
+(10, '2021_06_09_085239_create_mapel_table', 3),
+(11, '2021_06_17_013024_create_semester_table', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai`
+--
+
+CREATE TABLE `nilai` (
+  `id_nilai` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `nisn` bigint(20) UNSIGNED NOT NULL,
+  `id_mapel` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_semester` bigint(20) UNSIGNED NOT NULL,
+  `formatif` float DEFAULT NULL,
+  `uts` float DEFAULT NULL,
+  `uas` float DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -174,6 +194,28 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `semester`
+--
+
+CREATE TABLE `semester` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `semester` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tahun_ajaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `semester`
+--
+
+INSERT INTO `semester` (`id`, `semester`, `tahun_ajaran`, `created_at`, `updated_at`) VALUES
+(1, 'Ganjil', '2020/2021', '2021-06-17 02:02:17', NULL),
+(2, 'Genap', '2020/2021', '2021-06-17 02:02:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -231,13 +273,13 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `username`, `jabatan`, `email`, `password`, `level`, `remember_token`, `created_at`, `updated_at`, `last_login`) VALUES
 (1, 'Wahyu Ramadhani', 11190910000011, 'Admin', 'wahyurmd13@gmail.com', '$2y$10$yZU6JLvUh/GtB9eEHQhh0.CcUR1e/hF3PTabWMWfJy2SlpcO2/KAS', 'admin', NULL, NULL, '2021-06-10 05:02:45', '2021-06-12 11:43:33'),
 (2, 'Sigit Tri P', 11190910000013, 'Guru', 'sigit123@gmail.com', '$2y$10$e77jUf2NAz956ks4sFmt7OhFwCyPyumhpBKFHHibTh27n.BsBsgzS', 'guru', NULL, NULL, '2021-06-10 05:23:58', '2021-06-12 16:25:23'),
-(3, 'Awiez Fathwa Zein', 11190910000005, 'Siswa', 'awis12345@gmail.com', '$2y$10$oclQ/bHIu4FVj6OqyItME.T5DG6XA80XyGQkwj/Acpkr82mTgHLxm', 'siswa', NULL, NULL, '2021-06-10 05:13:39', '2021-06-10 05:03:49'),
+(3, 'Awiez Fathwa Zein', 11190910000005, 'Siswa', 'awis12345@gmail.com', '$2y$10$oclQ/bHIu4FVj6OqyItME.T5DG6XA80XyGQkwj/Acpkr82mTgHLxm', 'siswa', NULL, NULL, '2021-06-10 05:13:39', '2021-06-17 07:51:49'),
 (4, 'Anugrah Pramesta', 11190910000007, 'Wali Kelas', NULL, '$2y$10$1Z5YYSVH4n7ig4YivSPsC.SaqzdCVsKh89ORBc5y2EO3dhc/GD42S', 'guru', NULL, NULL, NULL, '2021-06-12 06:50:08'),
 (7, 'Jajang Nurjaman', 11190910000006, 'Siswa', NULL, '$2y$10$RA2665lWo9BEo9kYBk.MGu.3b5LmSeAA/Pft21rHwzBjMQbATd6z2', 'siswa', NULL, NULL, NULL, '2021-06-10 03:29:23'),
 (11, 'Amando Banda', 111000222, 'Guru', NULL, '$2y$10$5NDUlGzuKuvuAw4.VE07gOt4V/6fVvOK4nzd9.oUYJLxm75Cf67OC', 'guru', NULL, '2021-06-10 04:18:01', NULL, NULL),
 (12, 'Nurhidayat', 32153215, 'Siswa', NULL, '$2y$10$JreeE3Z6Pl2llS7GaNeMDeKBEOVKWcxSVaKXkdueWpd2.sGFPBbiy', 'siswa', NULL, '2021-06-10 04:18:42', NULL, NULL),
 (16, 'Lukman Syahid', 11190910000020, 'Siswa', NULL, '$2y$10$IVF4oKVH0LlNsXE7ktMOz.7Gdug/4uonzvVCXa170O.HZReB3eGsm', 'siswa', NULL, '2021-06-11 13:18:03', NULL, NULL),
-(17, 'Julius Simatupang', 11190910000001, 'BK', NULL, '$2y$10$m9ufo5.qLg85dieE3HmwWej1sx.OQptIE3Gwg5hDkUvTsH3bENbxe', 'guru', NULL, '2021-06-12 11:46:01', NULL, '2021-06-15 07:46:25');
+(17, 'Julius Simatupang', 11190910000001, 'BK', NULL, '$2y$10$m9ufo5.qLg85dieE3HmwWej1sx.OQptIE3Gwg5hDkUvTsH3bENbxe', 'guru', NULL, '2021-06-12 11:46:01', NULL, '2021-06-18 09:48:16');
 
 -- --------------------------------------------------------
 
@@ -305,10 +347,26 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `nilai`
+--
+ALTER TABLE `nilai`
+  ADD PRIMARY KEY (`id_nilai`),
+  ADD KEY `id_kelas` (`id_kelas`),
+  ADD KEY `nisn` (`nisn`),
+  ADD KEY `id_semester` (`id_semester`),
+  ADD KEY `id_mapel` (`id_mapel`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `semester`
+--
+ALTER TABLE `semester`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `siswa`
@@ -358,7 +416,19 @@ ALTER TABLE `laporan`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `nilai`
+--
+ALTER TABLE `nilai`
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -389,6 +459,15 @@ ALTER TABLE `laporan`
 --
 ALTER TABLE `mapel`
   ADD CONSTRAINT `mapel_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `guru` (`nip`);
+
+--
+-- Constraints for table `nilai`
+--
+ALTER TABLE `nilai`
+  ADD CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`),
+  ADD CONSTRAINT `nilai_ibfk_2` FOREIGN KEY (`nisn`) REFERENCES `siswa` (`nisn`),
+  ADD CONSTRAINT `nilai_ibfk_3` FOREIGN KEY (`id_semester`) REFERENCES `semester` (`id`),
+  ADD CONSTRAINT `nilai_ibfk_4` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
 
 --
 -- Constraints for table `siswa`
