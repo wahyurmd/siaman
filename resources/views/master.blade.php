@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/css/sb-admin-2.css') }}">
     {{-- <script src="{{ asset('assets/frontend/js/jquery-3.6.0.min.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @yield('css_jss_tambahan')
     <script>
         $(document).ready(function(){
@@ -22,6 +23,7 @@
             });
         });
     </script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body id="page-top">
 
@@ -48,15 +50,15 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-            
+
                 <!-- Divider -->
                 <hr class="sidebar-divider">
-            
+
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Informasi Siswa
                 </div>
-            
+
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item {{ Request::is('admin/absensi') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('admin/absensi') }}" data-target="#collapseTwo"
@@ -65,7 +67,7 @@
                         <span>Absensi Siswa</span>
                     </a>
                 </li>
-            
+
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item {{ Request::is('admin/ulangan_harian') ? 'active' : '' }} {{ Request::is('admin/uts') ? 'active' : '' }} {{ Request::is('admin/uas') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -83,7 +85,7 @@
                         </div>
                     </div>
                 </li>
-            
+
                 <li class="nav-item {{ Request::is('admin/jadwal_pelajaran') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('admin/jadwal_pelajaran') }}" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
@@ -98,7 +100,7 @@
                         <span>Riwayat Ujian</span>
                     </a>
                 </li>
-            
+
                 <li class="nav-item {{ Request::is('admin/daftar_laporan') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('admin/daftar_laporan') }}" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
@@ -124,7 +126,7 @@
                     </div>
                 </li>
             @endif
-            
+
             {{-- MENU UNTUK GURU --}}
             @if ($user->level == 'guru')
                 <!-- Nav Item - Dashboard -->
@@ -134,17 +136,17 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-            
+
                 <!-- Divider -->
                 <hr class="sidebar-divider">
-            
+
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Informasi Siswa
                 </div>
-            
+
                 <!-- buat ditampilin di guru -->
-            
+
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item {{ Request::is('guru/input_uh') ? 'active' : '' }} {{ Request::is('guru/input_uts') ? 'active' : '' }} {{ Request::is('guru/input_uas') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inputnilai"
@@ -163,7 +165,7 @@
                         </div>
                     </div>
                 </li>
-            
+
                 <li class="nav-item {{ Request::is('guru/lapor_masalah') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('guru/lapor_masalah') }}" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
@@ -171,7 +173,7 @@
                         <span>Lapor Siswa Bermasalah</span>
                     </a>
                 </li>
-            
+
                 <li class="nav-item {{ Request::is('guru/daftar_laporan') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('guru/daftar_laporan') }}" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
@@ -190,15 +192,15 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-            
+
                 <!-- Divider -->
                 <hr class="sidebar-divider">
-            
+
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Informasi Siswa
                 </div>
-            
+
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item {{ Request::is('siswa/absensi') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('siswa/absensi') }}" data-target="#collapseTwo"
@@ -207,7 +209,7 @@
                         <span>Absensi Siswa</span>
                     </a>
                 </li>
-            
+
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item {{ Request::is('siswa/ulangan_harian') ? 'active' : '' }} {{ Request::is('siswa/uts') ? 'active' : '' }} {{ Request::is('siswa/uas') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -226,7 +228,7 @@
                         </div>
                     </div>
                 </li>
-            
+
                 <li class="nav-item {{ Request::is('siswa/jadwal_pelajaran') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('siswa/jadwal_pelajaran') }}" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
@@ -242,14 +244,14 @@
                     </a>
                 </li>
             @endif
-        
+
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-        </ul>        
+        </ul>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -265,7 +267,7 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->
@@ -294,9 +296,9 @@
                                 </a>
                             </div>
                         </li>
-                    
+
                     </ul>
-                    
+
                 </nav>
                 <!-- End of Topbar -->
 
@@ -342,16 +344,16 @@
                         <div class="col">
                             <!-- Trigger the Modal -->
                             <img id="myImg" src="{{ asset('assets/frontend/vendor/img/undraw_profile.svg') }}" alt="Douglas McGee" class="img-profile">
-                            
+
                             <!-- The Modal -->
                             <div id="myModal" class="modal-zoom">
-                                
+
                                 <!-- The Close Button -->
                                 <span class="close-zoom">&times;</span>
-                                
+
                                 <!-- Modal Content (The Image) -->
                                 <img class="modal-zoom-content" id="img01">
-                                
+
                                 <!-- Modal Caption (Image Text) -->
                                 <div id="caption"></div>
                                 <br>

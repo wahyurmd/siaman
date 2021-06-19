@@ -187,6 +187,9 @@ class DashboardController extends Controller
         $mapel_input = Request()->mapel;
         $semester_input = Request()->semester;
         $kelas_input = Request()->kelas;
+        $mapel_table = DB::table('mapel')->where('id_mapel', $mapel_input)->first();
+        $kelas_table = DB::table('kelas')->where('id_kelas', $kelas_input)->first();
+        // return $mapel_table->mapel;
 
         // data user yang sedang login
         $user = Auth::user();
@@ -223,7 +226,8 @@ class DashboardController extends Controller
             'mapel_input',
             'semester_input',
             'kelas_input',
-            'output'
+            'output',
+            'mapel_table'
         ));
     }
 
