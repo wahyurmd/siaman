@@ -12,13 +12,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-    <i class="fas fa-file-alt"></i><span style="font-size: large;"> Input Nilai Ulangan Tengah Semester</span>
+    <i class="fas fa-file-alt"></i><span style="font-size: large;"> Input Nilai Formatif</span>
     <br>
     <br>
 
     <div class="row">
         <div class="col">
-            <form action="input_uts" method="">
+            <form action="input_formatif" method="">
                 <div class="form-group">
                     <div class="row mb-3">
                         <div class="col-md-2">
@@ -94,7 +94,7 @@
                     </div>
                     @endforeach
                 </div>
-                <form action="{{ url('guru/input_uts/proses') }}" method="POST">
+                <form action="{{ url('guru/input_formatif/proses') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="table-responsive">
                         <table class="table">
@@ -118,7 +118,7 @@
                                             <input type="hidden" name="id_mapel[]" class="form-control" value="{{ $mapel_table1->id_mapel }}" readonly>
                                             <input type="hidden" name="id_semester[]" class="form-control" value="{{ $semester_table1->id }}" readonly>
                                             <input type="hidden" name="id_kelas[]" class="form-control" value="{{ $kelas_table1->id_kelas }}" readonly>
-                                            <input type="hidden" name="keterangan[]" class="form-control" value="uts" readonly>
+                                            <input type="hidden" name="keterangan[]" class="form-control" value="formatif" readonly>
                                         </td>
                                     </tr>
                                 </tbody>

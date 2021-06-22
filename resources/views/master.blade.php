@@ -12,7 +12,7 @@
     rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/css/sb-admin-2.css') }}">
-    {{-- <script src="{{ asset('assets/frontend/js/jquery-3.6.0.min.js') }}"></script> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     @yield('css_jss_tambahan')
     <script>
@@ -64,22 +64,19 @@
                         <span>Absensi Siswa</span>
                     </a>
                 </li>
-                <!-- Nav Item - Utilities Collapse Menu -->
-                <li class="nav-item {{ Request::is('admin/ulangan_harian') ? 'active' : '' }} {{ Request::is('admin/uts') ? 'active' : '' }} {{ Request::is('admin/uas') ? 'active' : '' }}">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Nilai</span>
+                <li class="nav-item {{ Request::is('admin/input-kelas') ? 'active' : '' }}">
+                    <a class="nav-link collapsed" href="{{ url('admin/input-kelas') }}" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-plus-square"></i>
+                        <span>Input Kelas Siswa</span>
                     </a>
-                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Transkrip Nilai :</h6>
-                            <a class="collapse-item {{ Request::is('admin/ulangan_harian') ? 'bg-primary' : '' }}" href="{{ url('admin/ulangan_harian') }}">Ulangan Harian</a>
-                            <a class="collapse-item {{ Request::is('admin/uts') ? 'bg-primary' : '' }}" href="{{ url('admin/uts') }}">UTS</a>
-                            <a class="collapse-item {{ Request::is('admin/uas') ? 'bg-primary' : '' }}" href="{{ url('admin/uas') }}">UAS</a>
-                        </div>
-                    </div>
+                </li>
+                <li class="nav-item {{ Request::is('admin/input-jadwal') ? 'active' : '' }}">
+                    <a class="nav-link collapsed" href="{{ url('admin/input-jadwal') }}" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Input Jadwal Pelajaran</span>
+                    </a>
                 </li>
                 <li class="nav-item {{ Request::is('admin/jadwal_pelajaran') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('admin/jadwal_pelajaran') }}" data-target="#collapseTwo"
@@ -134,7 +131,7 @@
                 <!-- buat ditampilin di guru -->
 
                 <!-- Nav Item - Utilities Collapse Menu -->
-                <li class="nav-item {{ Request::is('guru/input_uh') ? 'active' : '' }} {{ Request::is('guru/input_uts') ? 'active' : '' }} {{ Request::is('guru/input_uas') ? 'active' : '' }}">
+                <li class="nav-item {{ Request::is('guru/input_formatif') ? 'active' : '' }} {{ Request::is('guru/input_uts') ? 'active' : '' }} {{ Request::is('guru/input_uas') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inputnilai"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-file-alt"></i>
@@ -144,7 +141,7 @@
                     data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Pilih Jenis Nilai</h6>
-                            <a class="collapse-item {{ Request::is('guru/input_uh') ? 'bg-primary' : '' }}" href="{{ url('guru/input_uh') }}">Ulangan Harian</a>
+                            <a class="collapse-item {{ Request::is('guru/input_formatif') ? 'bg-primary' : '' }}" href="{{ url('guru/input_formatif') }}">Formatif</a>
                             <a class="collapse-item {{ Request::is('guru/input_uts') ? 'bg-primary' : '' }}" href="{{ url('guru/input_uts') }}">UTS</a>
                             <a class="collapse-item {{ Request::is('guru/input_uas') ? 'bg-primary' : '' }}" href="{{ url('guru/input_uas') }}">UAS</a>
                             <!-- <a class="collapse-item" href="ujian.html">Tampilkan Semua</a> -->
@@ -193,7 +190,7 @@
                     </a>
                 </li>
                 <!-- Nav Item - Utilities Collapse Menu -->
-                <li class="nav-item {{ Request::is('siswa/ulangan_harian') ? 'active' : '' }} {{ Request::is('siswa/uts') ? 'active' : '' }} {{ Request::is('siswa/uas') ? 'active' : '' }}">
+                <li class="nav-item {{ Request::is('siswa/nilai-formatif') ? 'active' : '' }} {{ Request::is('siswa/nilai-uts') ? 'active' : '' }} {{ Request::is('siswa/nilai-uas') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-file-alt"></i>
@@ -203,10 +200,9 @@
                     data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Transkrip Nilai :</h6>
-                            <a class="collapse-item {{ Request::is('siswa/ulangan_harian') ? 'bg-primary' : '' }}" href="{{ url('siswa/ulangan_harian') }}">Ulangan Harian</a>
-                            <a class="collapse-item {{ Request::is('siswa/uts') ? 'bg-primary' : '' }}" href="{{ url('siswa/uts') }}">UTS</a>
-                            <a class="collapse-item {{ Request::is('siswa/uas') ? 'bg-primary' : '' }}" href="{{ url('siswa/uas') }}">UAS</a>
-                            <!-- <a class="collapse-item" href="ujian.html">Tampilkan Semua</a> -->
+                            <a class="collapse-item {{ Request::is('siswa/nilai-formatif') ? 'bg-primary' : '' }}" href="{{ url('siswa/nilai-formatif') }}">Formatif</a>
+                            <a class="collapse-item {{ Request::is('siswa/nilai-uts') ? 'bg-primary' : '' }}" href="{{ url('siswa/nilai-uts') }}">UTS</a>
+                            <a class="collapse-item {{ Request::is('siswa/nilai-uas') ? 'bg-primary' : '' }}" href="{{ url('siswa/nilai-uas') }}">UAS</a>
                         </div>
                     </div>
                 </li>

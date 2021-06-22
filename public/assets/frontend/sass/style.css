@@ -316,3 +316,11 @@ tr td .btn {
   width: 10px !important;
 }
 /*# sourceMappingURL=style.css.map */
+
+.fa-plus-square {
+  color: #007bff;
+}
+
+.fa-minus-square {
+  color: #dc3545;
+}

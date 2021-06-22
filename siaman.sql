@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2021 at 01:43 PM
+-- Generation Time: Jun 22, 2021 at 03:51 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -64,6 +64,35 @@ INSERT INTO `guru` (`nip`, `nama`, `tgl_lahir`, `jenis_kelamin`, `no_telp`, `ala
 (11190910000001, 'Julius Simatupang', NULL, NULL, NULL, NULL, NULL, '2021-06-12 11:46:01', NULL),
 (11190910000007, 'Anugrah Pramesta', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (11190910000013, 'Sigit Tri P', '2021-06-01', 'Laki-laki', '085282156489', 'dimana mana hatiku senang juah', NULL, NULL, '2021-06-10 05:23:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_mapel`
+--
+
+CREATE TABLE `jadwal_mapel` (
+  `id_jadwal` int(11) NOT NULL,
+  `id_mapel` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `hari` varchar(20) NOT NULL,
+  `jam_mulai` time NOT NULL,
+  `jam_akhir` time NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jadwal_mapel`
+--
+
+INSERT INTO `jadwal_mapel` (`id_jadwal`, `id_mapel`, `id_kelas`, `hari`, `jam_mulai`, `jam_akhir`, `created_at`, `updated_at`) VALUES
+(2, 'PAI002', 1, 'Senin', '08:00:00', '09:30:00', '2021-06-21 09:31:17', '2021-06-21 09:31:17'),
+(3, 'MATH002', 1, 'Senin', '09:30:00', '11:00:00', '2021-06-21 09:31:17', '2021-06-21 09:31:17'),
+(4, 'MATH001', 1, 'Selasa', '09:00:00', '11:00:00', '2021-06-21 12:18:20', '2021-06-21 12:18:20'),
+(5, 'PAI002', 1, 'Selasa', '12:00:00', '14:00:00', '2021-06-21 12:18:20', '2021-06-21 12:18:20'),
+(6, 'PAI001', 1, 'Rabu', '07:15:00', '09:00:00', '2021-06-21 12:18:59', '2021-06-21 12:18:59'),
+(7, 'MATH002', 1, 'Kamis', '08:00:00', '09:30:00', '2021-06-21 12:19:27', '2021-06-21 12:19:27');
 
 -- --------------------------------------------------------
 
@@ -176,12 +205,26 @@ CREATE TABLE `nilai` (
   `nisn` bigint(20) UNSIGNED NOT NULL,
   `id_mapel` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_semester` bigint(20) UNSIGNED NOT NULL,
-  `formatif` float DEFAULT NULL,
-  `uts` float DEFAULT NULL,
-  `uas` float DEFAULT NULL,
+  `nilai` float DEFAULT NULL,
+  `keterangan` varchar(20) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `nilai`
+--
+
+INSERT INTO `nilai` (`id_nilai`, `id_kelas`, `nisn`, `id_mapel`, `id_semester`, `nilai`, `keterangan`, `created_at`, `updated_at`) VALUES
+(1, 1, 11190910000005, 'MATH001', 1, 75.5, 'uts', '2021-06-19 10:07:08', '2021-06-19 10:07:08'),
+(2, 1, 11190910000006, 'MATH001', 1, 85.5, 'uts', '2021-06-19 10:07:08', '2021-06-19 10:07:08'),
+(3, 1, 32153215, 'MATH001', 1, 90.5, 'uts', '2021-06-19 10:07:08', '2021-06-19 10:07:08'),
+(4, 1, 11190910000005, 'MATH001', 1, 60, 'formatif', '2021-06-19 10:19:59', '2021-06-19 10:19:59'),
+(5, 1, 11190910000006, 'MATH001', 1, 60, 'formatif', '2021-06-19 10:19:59', '2021-06-19 10:19:59'),
+(6, 1, 32153215, 'MATH001', 1, 60, 'formatif', '2021-06-19 10:19:59', '2021-06-19 10:19:59'),
+(7, 1, 11190910000005, 'PAI001', 1, 80, 'uas', '2021-06-19 10:24:40', '2021-06-19 10:24:40'),
+(8, 1, 11190910000006, 'PAI001', 1, 82, 'uas', '2021-06-19 10:24:40', '2021-06-19 10:24:40'),
+(9, 1, 32153215, 'PAI001', 1, 73, 'uas', '2021-06-19 10:24:40', '2021-06-19 10:24:40');
 
 -- --------------------------------------------------------
 
@@ -244,7 +287,9 @@ INSERT INTO `siswa` (`nisn`, `id_kelas`, `nama`, `tgl_lahir`, `jenis_kelamin`, `
 (32153215, 1, 'Nurhidayat', NULL, NULL, NULL, NULL, NULL, '2021-06-10 04:18:42', NULL),
 (11190910000005, 1, 'Awiez Fathwa Zein', '2000-02-10', 'Laki-laki', '085282156184', 'dimana mana asdasda zzzz', '', NULL, '2021-06-10 05:13:39'),
 (11190910000006, 1, 'Jajang Nurjaman', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11190910000020, 2, 'Lukman Syahid', NULL, NULL, NULL, NULL, NULL, '2021-06-11 13:18:03', NULL);
+(11190910000020, 2, 'Lukman Syahid', NULL, NULL, NULL, NULL, NULL, '2021-06-11 13:18:03', NULL),
+(11190910000021, NULL, 'Tiara Andini', NULL, NULL, NULL, NULL, NULL, '2021-06-22 00:38:30', NULL),
+(11190910000022, NULL, 'Loki Asgard', NULL, NULL, NULL, NULL, NULL, '2021-06-22 00:38:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -271,15 +316,17 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `jabatan`, `email`, `password`, `level`, `remember_token`, `created_at`, `updated_at`, `last_login`) VALUES
-(1, 'Wahyu Ramadhani', 11190910000011, 'Admin', 'wahyurmd13@gmail.com', '$2y$10$yZU6JLvUh/GtB9eEHQhh0.CcUR1e/hF3PTabWMWfJy2SlpcO2/KAS', 'admin', NULL, NULL, '2021-06-10 05:02:45', '2021-06-12 11:43:33'),
+(1, 'Wahyu Ramadhani', 11190910000011, 'Admin', 'wahyurmd13@gmail.com', '$2y$10$yZU6JLvUh/GtB9eEHQhh0.CcUR1e/hF3PTabWMWfJy2SlpcO2/KAS', 'admin', NULL, NULL, '2021-06-10 05:02:45', '2021-06-22 00:19:25'),
 (2, 'Sigit Tri P', 11190910000013, 'Guru', 'sigit123@gmail.com', '$2y$10$e77jUf2NAz956ks4sFmt7OhFwCyPyumhpBKFHHibTh27n.BsBsgzS', 'guru', NULL, NULL, '2021-06-10 05:23:58', '2021-06-12 16:25:23'),
-(3, 'Awiez Fathwa Zein', 11190910000005, 'Siswa', 'awis12345@gmail.com', '$2y$10$oclQ/bHIu4FVj6OqyItME.T5DG6XA80XyGQkwj/Acpkr82mTgHLxm', 'siswa', NULL, NULL, '2021-06-10 05:13:39', '2021-06-17 07:51:49'),
+(3, 'Awiez Fathwa Zein', 11190910000005, 'Siswa', 'awis12345@gmail.com', '$2y$10$oclQ/bHIu4FVj6OqyItME.T5DG6XA80XyGQkwj/Acpkr82mTgHLxm', 'siswa', NULL, NULL, '2021-06-10 05:13:39', '2021-06-21 23:44:54'),
 (4, 'Anugrah Pramesta', 11190910000007, 'Wali Kelas', NULL, '$2y$10$1Z5YYSVH4n7ig4YivSPsC.SaqzdCVsKh89ORBc5y2EO3dhc/GD42S', 'guru', NULL, NULL, NULL, '2021-06-12 06:50:08'),
 (7, 'Jajang Nurjaman', 11190910000006, 'Siswa', NULL, '$2y$10$RA2665lWo9BEo9kYBk.MGu.3b5LmSeAA/Pft21rHwzBjMQbATd6z2', 'siswa', NULL, NULL, NULL, '2021-06-10 03:29:23'),
 (11, 'Amando Banda', 111000222, 'Guru', NULL, '$2y$10$5NDUlGzuKuvuAw4.VE07gOt4V/6fVvOK4nzd9.oUYJLxm75Cf67OC', 'guru', NULL, '2021-06-10 04:18:01', NULL, NULL),
 (12, 'Nurhidayat', 32153215, 'Siswa', NULL, '$2y$10$JreeE3Z6Pl2llS7GaNeMDeKBEOVKWcxSVaKXkdueWpd2.sGFPBbiy', 'siswa', NULL, '2021-06-10 04:18:42', NULL, NULL),
-(16, 'Lukman Syahid', 11190910000020, 'Siswa', NULL, '$2y$10$IVF4oKVH0LlNsXE7ktMOz.7Gdug/4uonzvVCXa170O.HZReB3eGsm', 'siswa', NULL, '2021-06-11 13:18:03', NULL, NULL),
-(17, 'Julius Simatupang', 11190910000001, 'BK', NULL, '$2y$10$m9ufo5.qLg85dieE3HmwWej1sx.OQptIE3Gwg5hDkUvTsH3bENbxe', 'guru', NULL, '2021-06-12 11:46:01', NULL, '2021-06-18 09:48:16');
+(16, 'Lukman Syahid', 11190910000020, 'Siswa', NULL, '$2y$10$IVF4oKVH0LlNsXE7ktMOz.7Gdug/4uonzvVCXa170O.HZReB3eGsm', 'siswa', NULL, '2021-06-11 13:18:03', NULL, '2021-06-21 23:55:10'),
+(17, 'Julius Simatupang', 11190910000001, 'BK', NULL, '$2y$10$m9ufo5.qLg85dieE3HmwWej1sx.OQptIE3Gwg5hDkUvTsH3bENbxe', 'guru', NULL, '2021-06-12 11:46:01', NULL, '2021-06-21 12:34:34'),
+(18, 'Tiara Andini', 11190910000021, 'Siswa', NULL, '$2y$10$qMeL7iZ6qTn/PTCaWMgwfuj9jV59HrpuhGxRWuv4akerEs0QRYBFu', 'siswa', NULL, '2021-06-22 00:38:30', NULL, NULL),
+(19, 'Loki Asgard', 11190910000022, 'Siswa', NULL, '$2y$10$FHzjKOx6KXC7XYxVM39L3eKNT5bZzqmCHAna0HGrMkWX8xMK2koBy', 'siswa', NULL, '2021-06-22 00:38:59', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -317,6 +364,14 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `guru`
   ADD PRIMARY KEY (`nip`);
+
+--
+-- Indexes for table `jadwal_mapel`
+--
+ALTER TABLE `jadwal_mapel`
+  ADD PRIMARY KEY (`id_jadwal`),
+  ADD KEY `id_kelas` (`id_kelas`),
+  ADD KEY `id_mapel` (`id_mapel`);
 
 --
 -- Indexes for table `kelas`
@@ -401,6 +456,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `jadwal_mapel`
+--
+ALTER TABLE `jadwal_mapel`
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -422,7 +483,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `semester`
@@ -434,7 +495,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `wali_kelas`
@@ -445,6 +506,13 @@ ALTER TABLE `wali_kelas`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `jadwal_mapel`
+--
+ALTER TABLE `jadwal_mapel`
+  ADD CONSTRAINT `jadwal_mapel_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`),
+  ADD CONSTRAINT `jadwal_mapel_ibfk_3` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
 
 --
 -- Constraints for table `laporan`

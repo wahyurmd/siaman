@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid">
-    <i class="fas fa-file-alt"></i><span style="font-size: large;"> Ujian Tengah Semester</span>
+    <i class="fas fa-file-alt"></i><span style="font-size: large;"> Nilai Formatif</span>
     <br>
     {{-- <div class="row">
         <div class="col-lg-4">
@@ -44,7 +44,7 @@
             @foreach ($nilai as $row)
                 <tbody>
                     @if ($row->nisn == Auth::user()->username)
-                        @if ($row->keterangan == 'uts')
+                        @if ($row->keterangan == 'formatif')
                             <tr>
                                 <th scope="row">{{ $no++ }}</th>
                                 <td>{{ $row->mapel }}</td>
@@ -52,7 +52,7 @@
                                 <td class="text-center">{{ $row->nilai }}</td>
                                 <td>
                                     @if ($row->nilai > 90 && $row->nilai == 100)
-                                        {{ "Sangat Baik" }}
+                                    {{ "Sangat Baik" }}
                                     @endif
                                     @if ($row->nilai > 80 && $row->nilai == 90)
                                         {{ "Baik" }}
@@ -61,7 +61,7 @@
                                         {{ "Cukup" }}
                                     @endif
                                     @if ($row->nilai <= 75)
-                                        {{ "Tidak Baik" }}
+                                        {{ "Anda Bodoh Sekali" }}
                                     @endif
                                 </td>
                             </tr>
