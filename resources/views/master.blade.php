@@ -129,7 +129,13 @@
                 </div>
 
                 <!-- buat ditampilin di guru -->
-
+                <li class="nav-item {{ Request::is('guru/absensi-siswa') ? 'active' : '' }}">
+                    <a class="nav-link collapsed" href="{{ url('guru/absensi-siswa') }}" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-user-check"></i>
+                        <span>Absensi</span>
+                    </a>
+                </li>
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item {{ Request::is('guru/input_formatif') ? 'active' : '' }} {{ Request::is('guru/input_uts') ? 'active' : '' }} {{ Request::is('guru/input_uas') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inputnilai"

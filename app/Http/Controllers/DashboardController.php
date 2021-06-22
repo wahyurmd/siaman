@@ -81,7 +81,7 @@ class DashboardController extends Controller
     }
 
     // Bagian Menu Siswa
-    public function absensi()
+    public function absensi(Request $request)
     {
         $user = Auth::user();
         $data = DB::table('users')
@@ -90,8 +90,23 @@ class DashboardController extends Controller
         $data2 = DB::table('users')
         ->join('guru', 'users.username', '=', 'guru.nip')
         ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
+        
+        $tanggal_input = $request->pilih_tgl;
 
-        return view('siswa/absensi', ['user' => $user, 'data' => $data, 'data2' => $data2]);
+        $absensi = DB::table('absensi')
+        ->join('siswa', 'absensi.nisn', '=', 'siswa.nisn')
+        ->join('kelas', 'absensi.id_kelas', '=', 'kelas.id_kelas')
+        ->join('mapel', 'absensi.id_mapel', '=', 'mapel.id_mapel')
+        ->where('absensi.nisn', Auth::user()->username)
+        ->get();
+
+        return view('siswa/absensi', [
+            'user' => $user, 
+            'data' => $data, 
+            'data2' => $data2,
+            'tanggal_input' => $tanggal_input,
+            'absensi' => $absensi,
+        ]);
     }
 
     public function formatif()
@@ -174,10 +189,22 @@ class DashboardController extends Controller
         ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
 
         $jadwal = DB::table('jadwal_mapel')
+        ->select(
+            'guru.nama',
+            'jadwal_mapel.hari',
+            'jadwal_mapel.jam_mulai',
+            'jadwal_mapel.jam_akhir',
+            'jadwal_mapel.id_kelas',
+            'mapel.mapel',
+            'kelas.kelas',
+            'kelas.jurusan'
+            )
         ->join('mapel', 'jadwal_mapel.id_mapel', '=', 'mapel.id_mapel')
         ->join('kelas', 'jadwal_mapel.id_kelas', '=', 'kelas.id_kelas')
         ->join('guru', 'mapel.nip', '=', 'guru.nip')
-        ->orderBy('jadwal_mapel.jam_mulai','asc')
+        ->join('siswa', 'kelas.id_kelas', '=', 'siswa.id_kelas')
+        ->where('siswa.nisn', Auth::user()->username)
+        ->orderBy('jadwal_mapel.id_jadwal','asc')
         ->get();
 
         return view('siswa/jadwal_pelajaran', [
@@ -261,6 +288,7 @@ class DashboardController extends Controller
         ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
         $pelajaran = DB::table('mapel')
         ->join('guru', 'mapel.nip', '=', 'guru.nip')
+        ->where('mapel.id_mapel', '!=', 'BREAK')
         ->get();
         $smt = DB::table('semester')->get();
         $output = DB::table('siswa')
@@ -309,6 +337,7 @@ class DashboardController extends Controller
         ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
         $pelajaran = DB::table('mapel')
         ->join('guru', 'mapel.nip', '=', 'guru.nip')
+        ->where('mapel.id_mapel', '!=', 'BREAK')
         ->get();
         $smt = DB::table('semester')->get();
         $output = DB::table('siswa')
@@ -357,6 +386,7 @@ class DashboardController extends Controller
         ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
         $pelajaran = DB::table('mapel')
         ->join('guru', 'mapel.nip', '=', 'guru.nip')
+        ->where('mapel.id_mapel', '!=', 'BREAK')
         ->get();
         $smt = DB::table('semester')->get();
         $output = DB::table('siswa')
@@ -386,6 +416,49 @@ class DashboardController extends Controller
             'mapel_table1' => $mapel_table1,
             'kelas_table1' => $kelas_table1,
             'semester_table1' => $semester_table1
+        ]);
+    }
+
+    public function input_absen(Request $request)
+    {
+        $user = Auth::user();
+        $data = DB::table('users')
+        ->join('siswa', 'users.username', '=', 'siswa.nisn')
+        ->select('users.*', 'siswa.nisn', 'siswa.tgl_lahir as tgllahir', 'siswa.jenis_kelamin as jk', 'siswa.no_telp as no_hp', 'siswa.alamat as address')->get();
+        $data2 = DB::table('users')
+        ->join('guru', 'users.username', '=', 'guru.nip')
+        ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
+
+        $tampil_kelas = Kelas::all();
+        $pelajaran = DB::table('mapel')
+        ->join('guru', 'mapel.nip', '=', 'guru.nip')
+        ->where('mapel.id_mapel', '!=', 'BREAK')
+        ->get();
+
+        #Get data request dari view
+        $kelas_input = $request->pilih_kelas;
+        $mapel_input = $request->pilih_mapel;
+        $tgl_input = $request->pilih_tgl;
+        $pertemuan_input = $request->pilih_pertemuan;
+
+        $siswa = DB::table('siswa')
+        ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id_kelas')
+        ->where('siswa.id_kelas', $kelas_input)
+        ->get();
+        $mapel_table1 = DB::table('mapel')->where('id_mapel', $mapel_input)->first();
+
+        return view('guru/input_absen', [
+            'user' => $user,
+            'data' => $data,
+            'data2' => $data2,
+            'tampil_kelas' => $tampil_kelas,
+            'pelajaran' => $pelajaran,
+            'kelas_input' => $kelas_input,
+            'mapel_input' => $mapel_input,
+            'tgl_input' => $tgl_input,
+            'pertemuan_input' => $pertemuan_input,
+            'siswa' => $siswa,
+            'mapel_table1' => $mapel_table1,
         ]);
     }
 }

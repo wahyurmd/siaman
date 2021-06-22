@@ -16,11 +16,7 @@ class KelasController extends Controller
         $jml_data = count($data['nisn']);
 
         for ($i=0; $i < $jml_data; $i++) { 
-            $data2 = array(
-                'id_kelas'      => $data['id_kelas'][$i]
-            );
-
-            Siswa::where('nisn', $data['nisn'])->update(['id_kelas' => $data2]);
+            Siswa::where('nisn', $data['nisn'][$i])->update(['id_kelas' => $data['id_kelas'][$i]]);
         }
 
         return redirect('admin/input-kelas')->with('sukses', 'Kelas berhasil di input!');

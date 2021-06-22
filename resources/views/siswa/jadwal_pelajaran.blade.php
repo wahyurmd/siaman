@@ -25,8 +25,8 @@
             <thead class="thead-dark">
                 <tr>
                     <th>No</th>
-                    <th>Mata Pelajaran</th>
                     <th>Hari</th>
+                    <th>Mata Pelajaran</th>
                     <th>Jam</th>
                     <th>Guru</th>
                     <th>Kelas</th>
@@ -40,8 +40,8 @@
                     @if ($jadwal->id_kelas == $jadwal->id_kelas)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $jadwal->mapel }}</td>
                             <td>{{ $jadwal->hari }}</td>
+                            <td>{{ $jadwal->mapel }}</td>
                             <td>{{ $jadwal->jam_mulai }} - {{ $jadwal->jam_akhir }}</td>
                             <td>{{ $jadwal->nama }}</td>
                             <td>{{ $jadwal->kelas }} {{ $jadwal->jurusan }}</td>
@@ -58,8 +58,8 @@
             <thead class="thead-dark">
                 <tr>
                     <th>No</th>
-                    <th>Mata Pelajaran</th>
                     <th>Hari</th>
+                    <th>Mata Pelajaran</th>
                     <th>Jam</th>
                     <th>Guru</th>
                     <th>Kelas</th>
@@ -72,8 +72,8 @@
                 <tbody>
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $jadwal->mapel }}</td>
                         <td>{{ $jadwal->hari }}</td>
+                        <td>{{ $jadwal->mapel }}</td>
                         <td>{{ $jadwal->jam_mulai }} - {{ $jadwal->jam_akhir }}</td>
                         <td>{{ $jadwal->nama }}</td>
                         <td>{{ $jadwal->kelas }} {{ $jadwal->jurusan }}</td>

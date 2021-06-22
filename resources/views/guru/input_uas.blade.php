@@ -12,13 +12,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-    <i class="fas fa-file-alt"></i><span style="font-size: large;"> Input Nilai Formatif</span>
+    <i class="fas fa-file-alt"></i><span style="font-size: large;"> Input Nilai Ulangan Akhir Semester</span>
     <br>
     <br>
 
     <div class="row">
         <div class="col">
-            <form action="input_uas" method="">
+            <form action="input_uas">
                 <div class="form-group">
                     <div class="row mb-3">
                         <div class="col-md-2">

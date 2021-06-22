@@ -5,28 +5,6 @@
 <div class="container-fluid">
     <i class="fas fa-file-alt"></i><span style="font-size: large;"> Nilai Ujian Akhir Semester</span>
     <br>
-    {{-- <div class="row">
-        <div class="col-lg-4">
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Silahkan Pilih Kelas</label>
-                    <select class="form-control" name="" id="">
-                        <option disabled selected value="X">Pilih Kelas</option>
-                        <option value="X">X</option>
-                        <option value="XI">XI</option>
-                        <option value="XII">XII</option>
-                    </select>
-                    <br>
-                    <label for="exampleInputEmail1">Silahkan Pilih Semester</label>
-                    <select class="form-control" name="" id="">
-                        <option value="Semester Ganjil">Semester Ganjil</option>
-                        <option value="Semester Genap">Semester Genap</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Cari Data</button>
-            </form>
-        </div>
-    </div> --}}
     <div class="wrapper-table mt-5" style="overflow-x: auto;">
         <table class="table table-stripped">
             <thead>

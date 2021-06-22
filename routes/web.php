@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -71,6 +72,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('guru/input_uts/proses', [NilaiController::class, 'proses_input_uts']);
         Route::post('guru/input_uas/proses', [NilaiController::class, 'proses_input_uas']);
         Route::get('guru/auth/edit/{username}', [AuthController::class, 'edit_akun']);
+        Route::get('guru/absensi-siswa', [DashboardController::class, 'input_absen']);
+        Route::post('guru/absensi-siswa/proses', [AbsensiController::class, 'proses_input_absen']);
     });
     Route::middleware(['cek_login:siswa'])->group(function () {
         Route::get('siswa/dashboard', [DashboardController::class, 'index'])->name('siswa/dashboard');
