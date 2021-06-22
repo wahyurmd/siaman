@@ -32,9 +32,6 @@ Route::prefix('/')->group(function () {
 
 Route::post('auth/proses-edit', [AuthController::class, 'proses_update']);
 
-// Route::get('autocomplete', [LaporanController::class, 'autocomplete_search'])->name('autocomplete');
-// Route::get('auto', [LaporanController::class, 'autocomplete'])->name('auto');
-// Route::post('getautocomplete', [LaporanController::class, 'getautocomplete'])->name('getautocomplete');
 Route::get('searchautocomplete', [LaporanController::class, 'searchautocomplete'])->name('searchautocomplete');
 
 Route::middleware(['auth'])->group(function () {

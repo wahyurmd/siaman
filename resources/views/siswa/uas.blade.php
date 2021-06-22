@@ -26,11 +26,11 @@
                             <tr>
                                 <th scope="row">{{ $no++ }}</th>
                                 <td>{{ $row->mapel }}</td>
-                                <td class="text-center">75</td>
+                                <td class="text-center">{{ $row->kkm }}</td>
                                 <td class="text-center">{{ $row->nilai }}</td>
                                 <td>
                                     @if ($row->nilai > 90 && $row->nilai == 100)
-                                    {{ "Sangat Baik" }}
+                                        {{ "Sangat Baik" }}
                                     @endif
                                     @if ($row->nilai > 80 && $row->nilai == 90)
                                         {{ "Baik" }}
@@ -38,8 +38,8 @@
                                     @if ($row->nilai > 70 && $row->nilai == 80)
                                         {{ "Cukup" }}
                                     @endif
-                                    @if ($row->nilai <= 75)
-                                        {{ "Anda Bodoh Sekali" }}
+                                    @if ($row->nilai <= 70)
+                                        {{ "Kurang" }}
                                     @endif
                                 </td>
                             </tr>

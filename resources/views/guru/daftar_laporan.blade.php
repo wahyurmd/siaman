@@ -8,8 +8,8 @@
         <thead>
             <tr>
                 <th scope="col" class="text-center">ID</th>
-                <th scope="col" class="text-center">Terlapor</th>
-                <th scope="col" class="text-center">Kronologi</th>
+                <th scope="col">Terlapor</th>
+                <th scope="col">Kronologi</th>
                 <th scope="col" class="text-center">Status</th>
                 @if (Auth::user()->jabatan == 'BK')
                     <th scope="col" class="text-center">Aksi</th>

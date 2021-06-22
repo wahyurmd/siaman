@@ -23,7 +23,41 @@ class DashboardController extends Controller
         ->join('guru', 'users.username', '=', 'guru.nip')
         ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
 
-        return view('dashboard', ['user' => $user, 'data' => $data, 'data2' => $data2]);
+        // tampilan progress dashboard
+        $laporan = DB::table('laporan')
+        ->join('guru','laporan.nip','=','guru.nip')
+        ->join('siswa','laporan.nisn','=','siswa.nisn')
+        ->join('kelas','laporan.id_kelas','=','kelas.id_kelas')
+        ->select('laporan.*','guru.nip','guru.nama as nama_guru','siswa.nisn','siswa.nama as nama_siswa','kelas.*')
+        ->get();
+
+        // tampilan jadwal pelajaran dashboard
+        $jadwal = DB::table('jadwal_mapel')
+        ->select(
+            'guru.nama',
+            'jadwal_mapel.hari',
+            'jadwal_mapel.jam_mulai',
+            'jadwal_mapel.jam_akhir',
+            'jadwal_mapel.id_kelas',
+            'mapel.mapel',
+            'kelas.kelas',
+            'kelas.jurusan'
+            )
+        ->join('mapel', 'jadwal_mapel.id_mapel', '=', 'mapel.id_mapel')
+        ->join('kelas', 'jadwal_mapel.id_kelas', '=', 'kelas.id_kelas')
+        ->join('guru', 'mapel.nip', '=', 'guru.nip')
+        ->join('siswa', 'kelas.id_kelas', '=', 'siswa.id_kelas')
+        ->where('siswa.nisn', Auth::user()->username)
+        ->orderBy('jadwal_mapel.id_jadwal','asc')
+        ->get();
+
+        return view('dashboard', [
+            'user' => $user, 
+            'data' => $data, 
+            'data2' => $data2,
+            'laporan' => $laporan,
+            'jadwal' => $jadwal,
+        ]);
     }
 
     // Bagian Menu Admin
@@ -188,6 +222,7 @@ class DashboardController extends Controller
         ->join('guru', 'users.username', '=', 'guru.nip')
         ->select('users.*', 'guru.nip', 'guru.tgl_lahir as tgllahir', 'guru.jenis_kelamin as jk', 'guru.no_telp as no_hp', 'guru.alamat as address')->get();
 
+        # Query Siswa
         $jadwal = DB::table('jadwal_mapel')
         ->select(
             'guru.nama',
@@ -207,11 +242,31 @@ class DashboardController extends Controller
         ->orderBy('jadwal_mapel.id_jadwal','asc')
         ->get();
 
+        # Query Admin
+        $jadwal_admin = DB::table('jadwal_mapel')
+        ->select(
+            'guru.nama',
+            'jadwal_mapel.hari',
+            'jadwal_mapel.jam_mulai',
+            'jadwal_mapel.jam_akhir',
+            'jadwal_mapel.id_kelas',
+            'mapel.mapel',
+            'kelas.kelas',
+            'kelas.jurusan'
+            )
+        ->join('mapel', 'jadwal_mapel.id_mapel', '=', 'mapel.id_mapel')
+        ->join('kelas', 'jadwal_mapel.id_kelas', '=', 'kelas.id_kelas')
+        ->join('guru', 'mapel.nip', '=', 'guru.nip')
+        ->join('siswa', 'kelas.id_kelas', '=', 'siswa.id_kelas')
+        ->orderBy('jadwal_mapel.id_jadwal','asc')
+        ->get();
+
         return view('siswa/jadwal_pelajaran', [
             'user' => $user, 
             'data' => $data, 
             'data2' => $data2,
             'jadwal' => $jadwal,
+            'jadwal_admin' => $jadwal_admin,
         ]);
     }
 

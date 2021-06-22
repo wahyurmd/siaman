@@ -12,6 +12,7 @@
     rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/css/sb-admin-2.css') }}">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     @yield('css_jss_tambahan')
@@ -57,13 +58,13 @@
                     Informasi Siswa
                 </div>
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item {{ Request::is('admin/absensi') ? 'active' : '' }}">
+                {{-- <li class="nav-item {{ Request::is('admin/absensi') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('admin/absensi') }}" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-user-check"></i>
                         <span>Absensi Siswa</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item {{ Request::is('admin/input-kelas') ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ url('admin/input-kelas') }}" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
@@ -501,10 +502,13 @@
 
     <!-- Page level plugins -->
     <script src="{{ asset('assets/frontend/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('assets/frontend/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/demo/chart-pie-demo.js') }}"></script>
+    <script src="js/demo/datatables-demo.js"></script>
 
     @yield('js_tambahan')
 </body>
